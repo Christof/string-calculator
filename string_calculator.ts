@@ -48,7 +48,7 @@ export class StringCalculator {
       throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
     }
 
-    return sum(numbers);
+    return sum(numbers.filter(number => number <= 1000));
   }
 
   static add(input: string): number {

@@ -43,6 +43,10 @@ describe(`StringCalculator`, () => {
       );
     });
 
+    it(`ignores numbers greater 1000, e.g. '1001,2' returns 2`, () => {
+      expect(StringCalculator.add('1001,2')).to.equal(2);
+    });
+
     it(`supports custom delimiters with more than one character, e.g. '//sep\\n1sep2' yields 3`, () => {
       expect(StringCalculator.add('//sep\n1sep2')).to.equal(3);
     });
