@@ -1,3 +1,8 @@
+function parseInteger(numberAsString: string): number {
+  const radix = 10;
+  return parseInt(numberAsString, radix);
+}
+
 export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
@@ -7,11 +12,9 @@ export class StringCalculator {
       const firstNumber = input.substring(0, separatorIndex);
       const secondNumber = input.substring(separatorIndex + 1);
 
-      const radix = 10;
-      return parseInt(firstNumber, radix) + parseInt(secondNumber, radix);
+      return parseInteger(firstNumber) + parseInteger(secondNumber);
     }
 
-    const radix = 10;
-    return parseInt(input, radix);
+    return parseInteger(input);
   }
 }
