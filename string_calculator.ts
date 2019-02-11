@@ -7,12 +7,12 @@ export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
 
-    const separatorIndex = input.indexOf(',');
-    if (separatorIndex >= 0) {
-      const firstNumber = input.substring(0, separatorIndex);
-      const secondNumber = input.substring(separatorIndex + 1);
-
-      return parseInteger(firstNumber) + parseInteger(secondNumber);
+    if (input.includes(',')) {
+      const numbersAsStrings = input.split(',');
+      const numbers = numbersAsStrings.map(numberAsString =>
+        parseInteger(numberAsString)
+      );
+      return numbers.reduce((accumulator, number) => accumulator + number);
     }
 
     return parseInteger(input);
