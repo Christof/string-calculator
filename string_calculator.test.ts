@@ -22,5 +22,9 @@ describe(`StringCalculator`, () => {
     it(`supports \n as additional separator`, () => {
       expect(StringCalculator.add('1,2\n4')).to.equal(7);
     });
+
+    it(`supports custom delimiters specified with a prefix, e.g. '//;\\n1;2' yields 3`, () => {
+      expect(StringCalculator.add('//;\n1;2')).to.equal(3);
+    });
   });
 });
