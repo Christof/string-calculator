@@ -33,7 +33,13 @@ describe(`StringCalculator`, () => {
 
     it(`throws an exception for a negative number`, () => {
       expect(() => StringCalculator.add('-1')).to.throw(
-        'Negatives not allowed'
+        /Negatives not allowed/
+      );
+    });
+
+    it(`lists negative numbers in the exception text`, () => {
+      expect(() => StringCalculator.add('-1,5,-3,-10')).to.throw(
+        'Negatives not allowed: -1,-3,-10'
       );
     });
 

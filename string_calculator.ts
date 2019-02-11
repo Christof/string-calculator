@@ -39,8 +39,10 @@ export class StringCalculator {
       this.separatorRegex
     );
 
-    if (numbers.some(number => number < 0))
-      throw Error('Negatives not allowed!');
+    if (numbers.some(number => number < 0)) {
+      const negativeNumbers = numbers.filter(number => number < 0);
+      throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
+    }
 
     return sum(numbers);
   }
