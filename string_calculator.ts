@@ -33,18 +33,14 @@ export class StringCalculator {
       multipleCharacterCustomSeparatorRegex
     );
 
-    if (singleCharacterCustomSeparatorMatch) {
-      const customSeparator = escapeRegExp(
-        singleCharacterCustomSeparatorMatch[1]
-      );
+    const match =
+      singleCharacterCustomSeparatorMatch ||
+      multipleCharacterCustomSeparatorMatch;
+
+    if (match) {
+      const customSeparator = escapeRegExp(match[1]);
       this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      this.inputWithNumbers = singleCharacterCustomSeparatorMatch[2];
-    } else if (multipleCharacterCustomSeparatorMatch) {
-      const customSeparator = escapeRegExp(
-        multipleCharacterCustomSeparatorMatch[1]
-      );
-      this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      this.inputWithNumbers = multipleCharacterCustomSeparatorMatch[2];
+      this.inputWithNumbers = match[2];
     } else {
       this.separatorRegex = /,|\n/;
       this.inputWithNumbers = input;
