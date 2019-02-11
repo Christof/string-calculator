@@ -18,5 +18,9 @@ describe(`StringCalculator`, () => {
     it(`returns sum of three given integers separated by ','`, () => {
       expect(StringCalculator.add('2,3,4')).to.equal(9);
     });
+
+    it(`supports \n as additional separator`, () => {
+      expect(StringCalculator.add('1,2\n4')).to.equal(7);
+    });
   });
 });

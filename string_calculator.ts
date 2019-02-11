@@ -7,8 +7,7 @@ export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
 
-    const separator = ',';
-    const numbersAsStrings = input.split(separator);
+    const numbersAsStrings = input.split(/,|\n/);
     const numbers = numbersAsStrings.map(numberAsString =>
       parseInteger(numberAsString)
     );
