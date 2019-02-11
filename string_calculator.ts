@@ -3,24 +3,33 @@ function parseInteger(numberAsString: string): number {
   return parseInt(numberAsString, radix);
 }
 
+function splitStringByRegexAndParseIntegers(
+  input: string,
+  separatorRegex: RegExp
+): number[] {
+  const numbersAsStrings = input.split(separatorRegex);
+  return numbersAsStrings.map(numberAsString => parseInteger(numberAsString));
+}
+
 export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
 
     if (input.startsWith('//')) {
       const customSeparator = input[2];
-      const matchCommaOrNewLine = new RegExp(`,|\n|${customSeparator}`);
-      const numbersAsStrings = input.substring(4).split(matchCommaOrNewLine);
-      const numbers = numbersAsStrings.map(numberAsString =>
-        parseInteger(numberAsString)
+      const separatorRegex = new RegExp(`,|\n|${customSeparator}`);
+      const numbers = splitStringByRegexAndParseIntegers(
+        input.substring(4),
+        separatorRegex
       );
+
       return numbers.reduce((accumulator, number) => accumulator + number);
     }
 
     const matchCommaOrNewLine = /,|\n/;
-    const numbersAsStrings = input.split(matchCommaOrNewLine);
-    const numbers = numbersAsStrings.map(numberAsString =>
-      parseInteger(numberAsString)
+    const numbers = splitStringByRegexAndParseIntegers(
+      input,
+      matchCommaOrNewLine
     );
     return numbers.reduce((accumulator, number) => accumulator + number);
   }
