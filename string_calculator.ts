@@ -8,14 +8,10 @@ export class StringCalculator {
     if (input.length === 0) return 0;
 
     const separator = ',';
-    if (input.includes(separator)) {
-      const numbersAsStrings = input.split(separator);
-      const numbers = numbersAsStrings.map(numberAsString =>
-        parseInteger(numberAsString)
-      );
-      return numbers.reduce((accumulator, number) => accumulator + number);
-    }
-
-    return parseInteger(input);
+    const numbersAsStrings = input.split(separator);
+    const numbers = numbersAsStrings.map(numberAsString =>
+      parseInteger(numberAsString)
+    );
+    return numbers.reduce((accumulator, number) => accumulator + number);
   }
 }
