@@ -1,0 +1,7 @@
+{
+  "name": "string-calculator",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "christof <christof.sirk@gmail.com>",
+  "license": "MIT"
+}
