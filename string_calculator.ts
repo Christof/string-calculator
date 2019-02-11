@@ -15,11 +15,13 @@ export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
 
-    if (input.startsWith('//')) {
-      const customSeparator = input[2];
+    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
+    const customSeparatorMatch = input.match(customSeparatorRegex);
+    if (customSeparatorMatch) {
+      const customSeparator = customSeparatorMatch[1];
       const separatorRegex = new RegExp(`,|\n|${customSeparator}`);
       const numbers = splitStringByRegexAndParseIntegers(
-        input.substring(4),
+        customSeparatorMatch[2],
         separatorRegex
       );
 
