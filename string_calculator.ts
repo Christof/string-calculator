@@ -22,13 +22,29 @@ export class StringCalculator {
   readonly inputWithNumbers: string;
 
   constructor(private input: string) {
-    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
-    const customSeparatorMatch = this.input.match(customSeparatorRegex);
+    const singleCharacterCustomSeparatorRegex = /\/\/(.)\n(.*)/;
+    const multipleCharacterCustomSeparatorRegex = /\/\/\[(.*)\]\n(.*)/;
 
-    if (customSeparatorMatch) {
-      const customSeparator = escapeRegExp(customSeparatorMatch[1]);
+    const singleCharacterCustomSeparatorMatch = this.input.match(
+      singleCharacterCustomSeparatorRegex
+    );
+
+    const multipleCharacterCustomSeparatorMatch = this.input.match(
+      multipleCharacterCustomSeparatorRegex
+    );
+
+    if (singleCharacterCustomSeparatorMatch) {
+      const customSeparator = escapeRegExp(
+        singleCharacterCustomSeparatorMatch[1]
+      );
       this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      this.inputWithNumbers = customSeparatorMatch[2];
+      this.inputWithNumbers = singleCharacterCustomSeparatorMatch[2];
+    } else if (multipleCharacterCustomSeparatorMatch) {
+      const customSeparator = escapeRegExp(
+        multipleCharacterCustomSeparatorMatch[1]
+      );
+      this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
+      this.inputWithNumbers = multipleCharacterCustomSeparatorMatch[2];
     } else {
       this.separatorRegex = /,|\n/;
       this.inputWithNumbers = input;
