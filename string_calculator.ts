@@ -5,6 +5,10 @@ function parseInteger(numberAsString: string): number {
   return parseInt(numberAsString, radix);
 }
 
+function isNegative(number: number): boolean {
+  return number < 0;
+}
+
 function splitStringByRegexAndParseIntegers(
   input: string,
   separatorRegex: RegExp
@@ -39,8 +43,8 @@ export class StringCalculator {
       this.separatorRegex
     );
 
-    if (numbers.some(number => number < 0)) {
-      const negativeNumbers = numbers.filter(number => number < 0);
+    if (numbers.some(isNegative)) {
+      const negativeNumbers = numbers.filter(isNegative);
       throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
     }
 
