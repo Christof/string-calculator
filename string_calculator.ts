@@ -16,26 +16,31 @@ function sum(numbers: number[]): number {
 }
 
 export class StringCalculator {
-  constructor(private input: string) {}
+  readonly separatorRegex: RegExp;
+  readonly inputWithNumbers: string;
+
+  constructor(private input: string) {
+    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
+    const customSeparatorMatch = this.input.match(customSeparatorRegex);
+
+    if (customSeparatorMatch) {
+      const customSeparator = customSeparatorMatch[1];
+      this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
+      this.inputWithNumbers = customSeparatorMatch[2];
+    } else {
+      this.separatorRegex = /,|\n/;
+      this.inputWithNumbers = input;
+    }
+  }
+
   add(): number {
     if (this.input.length === 0) return 0;
 
-    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
-    const customSeparatorMatch = this.input.match(customSeparatorRegex);
-    if (customSeparatorMatch) {
-      const customSeparator = customSeparatorMatch[1];
-      const separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      return sum(
-        splitStringByRegexAndParseIntegers(
-          customSeparatorMatch[2],
-          separatorRegex
-        )
-      );
-    }
-
-    const matchCommaOrNewLine = /,|\n/;
     return sum(
-      splitStringByRegexAndParseIntegers(this.input, matchCommaOrNewLine)
+      splitStringByRegexAndParseIntegers(
+        this.inputWithNumbers,
+        this.separatorRegex
+      )
     );
   }
 
