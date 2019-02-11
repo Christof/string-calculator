@@ -11,6 +11,10 @@ function splitStringByRegexAndParseIntegers(
   return numbersAsStrings.map(numberAsString => parseInteger(numberAsString));
 }
 
+function sum(numbers: number[]): number {
+  return numbers.reduce((accumulator, number) => accumulator + number);
+}
+
 export class StringCalculator {
   static add(input: string): number {
     if (input.length === 0) return 0;
@@ -20,19 +24,15 @@ export class StringCalculator {
     if (customSeparatorMatch) {
       const customSeparator = customSeparatorMatch[1];
       const separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      const numbers = splitStringByRegexAndParseIntegers(
-        customSeparatorMatch[2],
-        separatorRegex
+      return sum(
+        splitStringByRegexAndParseIntegers(
+          customSeparatorMatch[2],
+          separatorRegex
+        )
       );
-
-      return numbers.reduce((accumulator, number) => accumulator + number);
     }
 
     const matchCommaOrNewLine = /,|\n/;
-    const numbers = splitStringByRegexAndParseIntegers(
-      input,
-      matchCommaOrNewLine
-    );
-    return numbers.reduce((accumulator, number) => accumulator + number);
+    return sum(splitStringByRegexAndParseIntegers(input, matchCommaOrNewLine));
   }
 }
