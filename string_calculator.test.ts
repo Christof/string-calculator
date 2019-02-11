@@ -50,5 +50,13 @@ describe(`StringCalculator`, () => {
     it(`supports custom delimiters with more than one character, e.g. '//[sep]\\n1sep2' yields 3`, () => {
       expect(StringCalculator.add('//[sep]\n1sep2')).to.equal(3);
     });
+
+    it(`allows multiple delimiters with this syntax: '//[|][%]\\n1|2%3' yields 6`, () => {
+      expect(StringCalculator.add('//[|][%]\n1|2%3')).to.equal(6);
+    });
+
+    it(`allows multiple delimiters with different lengths. e.g. '//[||][%%]\\n1||2%3' yields 6`, () => {
+      expect(StringCalculator.add('//[|][%]\n1|2%3')).to.equal(6);
+    });
   });
 });

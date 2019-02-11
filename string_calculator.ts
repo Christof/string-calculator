@@ -21,26 +21,21 @@ export class StringCalculator {
   readonly separatorRegex: RegExp;
   readonly inputWithNumbers: string;
 
-  constructor(private input: string) {
-    const singleCharacterCustomSeparatorRegex = /\/\/(.)\n(.*)/;
-    const multipleCharacterCustomSeparatorRegex = /\/\/\[(.*)\]\n(.*)/;
+  constructor(input: string) {
+    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
+    const customSeparatorMatch = input.match(customSeparatorRegex);
 
-    const singleCharacterCustomSeparatorMatch = this.input.match(
-      singleCharacterCustomSeparatorRegex
-    );
+    if (customSeparatorMatch) {
+      const customSeparatorPart = customSeparatorMatch[1];
+      this.inputWithNumbers = customSeparatorMatch[2];
 
-    const multipleCharacterCustomSeparatorMatch = this.input.match(
-      multipleCharacterCustomSeparatorRegex
-    );
+      const separators = customSeparatorPart
+        .split(']')
+        .filter(element => element.length)
+        .map(element => element.substring(1))
+        .map(separator => escapeRegExp(separator));
 
-    const match =
-      singleCharacterCustomSeparatorMatch ||
-      multipleCharacterCustomSeparatorMatch;
-
-    if (match) {
-      const customSeparator = escapeRegExp(match[1]);
-      this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
-      this.inputWithNumbers = match[2];
+      this.separatorRegex = new RegExp(`,|\n|${separators.join('|')}`);
     } else {
       this.separatorRegex = /,|\n/;
       this.inputWithNumbers = input;
@@ -48,7 +43,7 @@ export class StringCalculator {
   }
 
   add(): number {
-    if (this.input.length === 0) return 0;
+    if (this.inputWithNumbers.length === 0) return 0;
 
     const numbers = splitStringByRegexAndParseIntegers(
       this.inputWithNumbers,
