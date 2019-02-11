@@ -31,6 +31,12 @@ describe(`StringCalculator`, () => {
       expect(StringCalculator.add('//*\n1*2')).to.equal(3);
     });
 
+    it(`throws an exception for a negative number`, () => {
+      expect(() => StringCalculator.add('-1')).to.throw(
+        'Negatives not allowed'
+      );
+    });
+
     it(`supports custom delimiters with more than one character, e.g. '//sep\\n1sep2' yields 3`, () => {
       expect(StringCalculator.add('//sep\n1sep2')).to.equal(3);
     });

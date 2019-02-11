@@ -34,12 +34,15 @@ export class StringCalculator {
   add(): number {
     if (this.input.length === 0) return 0;
 
-    return sum(
-      splitStringByRegexAndParseIntegers(
-        this.inputWithNumbers,
-        this.separatorRegex
-      )
+    const numbers = splitStringByRegexAndParseIntegers(
+      this.inputWithNumbers,
+      this.separatorRegex
     );
+
+    if (numbers.some(number => number < 0))
+      throw Error('Negatives not allowed!');
+
+    return sum(numbers);
   }
 
   static add(input: string): number {
