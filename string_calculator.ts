@@ -1,4 +1,4 @@
-import { escapeRegExp } from 'lodash';
+import { escapeRegExp, sum } from 'lodash';
 
 function parseInteger(numberAsString: string): number {
   const radix = 10;
@@ -11,10 +11,6 @@ function splitStringByRegexAndParseIntegers(
 ): number[] {
   const numbersAsStrings = input.split(separatorRegex);
   return numbersAsStrings.map(numberAsString => parseInteger(numberAsString));
-}
-
-function sum(numbers: number[]): number {
-  return numbers.reduce((accumulator, number) => accumulator + number);
 }
 
 export class StringCalculator {
