@@ -1,3 +1,5 @@
+import { escapeRegExp } from 'lodash';
+
 function parseInteger(numberAsString: string): number {
   const radix = 10;
   return parseInt(numberAsString, radix);
@@ -24,7 +26,7 @@ export class StringCalculator {
     const customSeparatorMatch = this.input.match(customSeparatorRegex);
 
     if (customSeparatorMatch) {
-      const customSeparator = customSeparatorMatch[1];
+      const customSeparator = escapeRegExp(customSeparatorMatch[1]);
       this.separatorRegex = new RegExp(`,|\n|${customSeparator}`);
       this.inputWithNumbers = customSeparatorMatch[2];
     } else {
