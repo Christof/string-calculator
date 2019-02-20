@@ -22,5 +22,9 @@ describe(`StringCalculator`, () => {
     it(`supports \\n as additional operator, e.g. '10\n2' returns 12`, () => {
       expect(StringCalculator.add('10\n2')).to.equal(12);
     });
+
+    it(`supports custom separators specified with a prefix, e.g. '//;\\n1;2' returns 3`, () => {
+      expect(StringCalculator.add('//;\n1;2')).to.equal(3);
+    });
   });
 });
