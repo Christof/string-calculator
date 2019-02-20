@@ -40,5 +40,11 @@ describe(`StringCalculator`, () => {
         /Negatives not allowed/
       );
     });
+
+    it(`lists negative numbers in th exception text`, () => {
+      expect(() => StringCalculator.add('-1,-10,5,-100')).to.throw(
+        'Negatives not allowed: -1,-10,-100'
+      );
+    });
   });
 });
