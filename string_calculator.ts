@@ -22,6 +22,12 @@ interface ParseSeparatorsResult {
   remainingInput: string;
 }
 
+/**
+ * Extracts separators from input and returns a regex for the separators
+ * and the remaining input.
+ *
+ * @param input
+ */
 function parseSeparators(input: string): ParseSeparatorsResult {
   const customSeparatorRegex = /^\/\/(.*)\n.*$/;
 
@@ -40,6 +46,14 @@ function parseSeparators(input: string): ParseSeparatorsResult {
   };
 }
 
+/**
+ * Parses custom separator or separators.
+ *
+ * @param customSeparatorPart Separator part of the input, i.e. one separator
+ * (e.g. ';') or multiple separtors in sequare brackets (e.g. '[|][%]')
+ *
+ * @returns Array of separators
+ */
 function parseCustomSeparators(customSeparatorPart: string) {
   return customSeparatorPart
     .split(']')
