@@ -59,15 +59,19 @@ export class StringCalculator {
   add(): number {
     if (this.input.length === 0) return 0;
 
-    if (this.numbers.some(isNegative)) {
-      const negativeNumbers = this.numbers.filter(isNegative);
-      throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
-    }
+    this.throwForNegativeNumbers();
 
     return sum(this.numbers.filter(number => number <= 1000));
   }
 
   static add(input: string): number {
     return new StringCalculator(input).add();
+  }
+
+  private throwForNegativeNumbers() {
+    if (this.numbers.some(isNegative)) {
+      const negativeNumbers = this.numbers.filter(isNegative);
+      throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
+    }
   }
 }
