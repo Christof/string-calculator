@@ -34,11 +34,15 @@ export class StringCalculator {
     );
     const numbers = numbersAsStrings.map(s => parseInt(s, 10));
 
-    if (numbers.some(number => number <= 0)) {
-      const negatives = numbers.filter(number => number <= 0);
+    if (numbers.some(isNegative)) {
+      const negatives = numbers.filter(isNegative);
       throw new RangeError('Negatives not allowed: ' + negatives.join(','));
     }
 
     return numbers.reduce((accumulator, number) => accumulator + number, 0);
   }
+}
+
+function isNegative(number: number) {
+  return number <= 0;
 }
