@@ -17,45 +17,54 @@ function splitStringByRegexAndParseIntegers(
   return numbersAsStrings.map(numberAsString => parseInteger(numberAsString));
 }
 
+interface SeparatorParseResult {
+  separatorRegex: RegExp;
+  remainingInput: string;
+}
+
+function parseSeparators(input: string): SeparatorParseResult {
+  const customSeparatorRegex = /^\/\/(.*)\n.*$/;
+
+  const customSeparatorMatch = input.match(customSeparatorRegex);
+
+  if (!customSeparatorMatch)
+    return { separatorRegex: /,|\n/, remainingInput: input };
+
+  const customSeparatorPart = customSeparatorMatch[1];
+
+  const separators = customSeparatorPart
+    .split(']')
+    .filter(element => element.length)
+    .map(element => element.substring(1))
+    .map(separator => escapeRegExp(separator));
+
+  return {
+    separatorRegex: new RegExp(`,|\n|${separators.join('|')}`),
+    remainingInput: input.slice(customSeparatorPart.length + 1)
+  };
+}
+
 export class StringCalculator {
-  readonly separatorRegex: RegExp;
-  readonly inputWithNumbers: string;
+  private numbers: number[];
 
-  constructor(input: string) {
-    const customSeparatorRegex = /\/\/(.*)\n(.*)/;
-    const customSeparatorMatch = input.match(customSeparatorRegex);
+  constructor(private input: string) {
+    const separatorParseResult = parseSeparators(this.input);
 
-    if (customSeparatorMatch) {
-      const customSeparatorPart = customSeparatorMatch[1];
-      this.inputWithNumbers = customSeparatorMatch[2];
-
-      const separators = customSeparatorPart
-        .split(']')
-        .filter(element => element.length)
-        .map(element => element.substring(1))
-        .map(separator => escapeRegExp(separator));
-
-      this.separatorRegex = new RegExp(`,|\n|${separators.join('|')}`);
-    } else {
-      this.separatorRegex = /,|\n/;
-      this.inputWithNumbers = input;
-    }
+    this.numbers = splitStringByRegexAndParseIntegers(
+      separatorParseResult.remainingInput,
+      separatorParseResult.separatorRegex
+    );
   }
 
   add(): number {
-    if (this.inputWithNumbers.length === 0) return 0;
+    if (this.input.length === 0) return 0;
 
-    const numbers = splitStringByRegexAndParseIntegers(
-      this.inputWithNumbers,
-      this.separatorRegex
-    );
-
-    if (numbers.some(isNegative)) {
-      const negativeNumbers = numbers.filter(isNegative);
+    if (this.numbers.some(isNegative)) {
+      const negativeNumbers = this.numbers.filter(isNegative);
       throw Error('Negatives not allowed: ' + negativeNumbers.join(','));
     }
 
-    return sum(numbers.filter(number => number <= 1000));
+    return sum(this.numbers.filter(number => number <= 1000));
   }
 
   static add(input: string): number {
