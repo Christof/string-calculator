@@ -26,5 +26,9 @@ describe(`StringCalculator`, () => {
     it(`supports custom separators specified with a prefix, e.g. '//;\\n1;2' returns 3`, () => {
       expect(StringCalculator.add('//;\n1;2')).to.equal(3);
     });
+
+    it(`supports custom separators and escapes them, e.g. '//'\\n1*2' returns 3`, () => {
+      expect(StringCalculator.add('//*\n1*2')).to.equal(3);
+    });
   });
 });

@@ -1,3 +1,5 @@
+import { escapeRegExp } from 'lodash';
+
 interface ParseSeparatorsResult {
   separatorsRegex: RegExp;
   remainingInput: string;
@@ -6,8 +8,9 @@ export class StringCalculator {
   static parseSeparators(input: string): ParseSeparatorsResult {
     if (input.startsWith('//')) {
       const startOfContent = input.indexOf('\n');
+      const separator = input.slice(2, startOfContent);
       return {
-        separatorsRegex: new RegExp(input.slice(2, startOfContent)),
+        separatorsRegex: new RegExp(escapeRegExp(separator)),
         remainingInput: input.slice(startOfContent + 1)
       };
     }
