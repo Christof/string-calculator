@@ -34,12 +34,16 @@ export class StringCalculator {
     );
     const numbers = numbersAsStrings.map(s => parseInt(s, 10));
 
+    StringCalculator.throwErrorForNegativeNumbers(numbers);
+
+    return numbers.reduce((accumulator, number) => accumulator + number, 0);
+  }
+
+  static throwErrorForNegativeNumbers(numbers: number[]) {
     if (numbers.some(isNegative)) {
       const negatives = numbers.filter(isNegative);
       throw new RangeError('Negatives not allowed: ' + negatives.join(','));
     }
-
-    return numbers.reduce((accumulator, number) => accumulator + number, 0);
   }
 }
 
