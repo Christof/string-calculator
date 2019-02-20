@@ -4,8 +4,8 @@ interface ParseSeparatorsResult {
   separatorsRegex: RegExp;
   remainingInput: string;
 }
-export class StringCalculator {
-  static parseSeparators(input: string): ParseSeparatorsResult {
+export namespace StringCalculator {
+  function parseSeparators(input: string): ParseSeparatorsResult {
     const defaultSeparators = ',|\n';
     if (input.startsWith('//')) {
       const startOfContent = input.indexOf('\n');
@@ -24,22 +24,22 @@ export class StringCalculator {
     };
   }
 
-  static add(input: string): number {
+  export function add(input: string): number {
     if (input.length === 0) return 0;
 
-    const separatorsParseResult = StringCalculator.parseSeparators(input);
+    const separatorsParseResult = parseSeparators(input);
 
     const numbersAsStrings = separatorsParseResult.remainingInput.split(
       separatorsParseResult.separatorsRegex
     );
     const numbers = numbersAsStrings.map(s => parseInt(s, 10));
 
-    StringCalculator.throwErrorForNegativeNumbers(numbers);
+    throwErrorForNegativeNumbers(numbers);
 
     return numbers.reduce((accumulator, number) => accumulator + number, 0);
   }
 
-  static throwErrorForNegativeNumbers(numbers: number[]) {
+  function throwErrorForNegativeNumbers(numbers: number[]) {
     if (numbers.some(isNegative)) {
       const negatives = numbers.filter(isNegative);
       throw new RangeError('Negatives not allowed: ' + negatives.join(','));
