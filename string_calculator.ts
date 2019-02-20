@@ -17,12 +17,12 @@ function splitStringByRegexAndParseIntegers(
   return numbersAsStrings.map(numberAsString => parseInteger(numberAsString));
 }
 
-interface SeparatorParseResult {
+interface ParseSeparatorsResult {
   separatorRegex: RegExp;
   remainingInput: string;
 }
 
-function parseSeparators(input: string): SeparatorParseResult {
+function parseSeparators(input: string): ParseSeparatorsResult {
   const customSeparatorRegex = /^\/\/(.*)\n.*$/;
 
   const customSeparatorMatch = input.match(customSeparatorRegex);
@@ -32,16 +32,20 @@ function parseSeparators(input: string): SeparatorParseResult {
 
   const customSeparatorPart = customSeparatorMatch[1];
 
-  const separators = customSeparatorPart
-    .split(']')
-    .filter(element => element.length)
-    .map(element => element.substring(1))
-    .map(separator => escapeRegExp(separator));
+  const separators = parseCustomSeparators(customSeparatorPart);
 
   return {
     separatorRegex: new RegExp(`,|\n|${separators.join('|')}`),
     remainingInput: input.slice(customSeparatorPart.length + 1)
   };
+}
+
+function parseCustomSeparators(customSeparatorPart: string) {
+  return customSeparatorPart
+    .split(']')
+    .filter(element => element.length)
+    .map(element => element.substring(1))
+    .map(separator => escapeRegExp(separator));
 }
 
 export class StringCalculator {
