@@ -34,6 +34,9 @@ export class StringCalculator {
     );
     const numbers = numbersAsStrings.map(s => parseInt(s, 10));
 
+    if (numbers.some(number => number <= 0))
+      throw new RangeError('Negatives not allowed');
+
     return numbers.reduce((accumulator, number) => accumulator + number, 0);
   }
 }

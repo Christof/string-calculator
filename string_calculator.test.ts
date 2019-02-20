@@ -34,5 +34,11 @@ describe(`StringCalculator`, () => {
     it(`supports a mix of custom separators, comma and newline`, () => {
       expect(StringCalculator.add('//*\n1*2\n3,5')).to.equal(11);
     });
+
+    it(`throws an exception for a negative number`, () => {
+      expect(() => StringCalculator.add('-1')).to.throw(
+        /Negatives not allowed/
+      );
+    });
   });
 });
