@@ -14,5 +14,9 @@ describe(`StringCalculator`, () => {
     it(`returns sum of two given integers, e.g. '1,2' returns 3`, () => {
       expect(StringCalculator.add('1,2')).to.equal(3);
     });
+
+    it(`returns sum of three given integers, e.g. '10, 20, 30' returns 60`, () => {
+      expect(StringCalculator.add('10,20,30')).to.equal(60);
+    });
   });
 });
