@@ -18,5 +18,9 @@ describe(`StringCalculator`, () => {
     it(`returns sum of three given integers, e.g. '10, 20, 30' returns 60`, () => {
       expect(StringCalculator.add('10,20,30')).to.equal(60);
     });
+
+    it(`supports \\n as additional operator, e.g. '10\n2' returns 12`, () => {
+      expect(StringCalculator.add('10\n2')).to.equal(12);
+    });
   });
 });
