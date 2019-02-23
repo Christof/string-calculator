@@ -10,5 +10,9 @@ describe(`StringCalculator`, () => {
     it(`converts a given string into a number, e.g. '1' to 1`, () => {
       expect(add('1')).to.equal(1);
     });
+
+    it(`returns the sum of two given numbers separated by ',', e.g. '1,2' returns 3`, () => {
+      expect(add('1,2')).to.equal(3);
+    });
   });
 });
