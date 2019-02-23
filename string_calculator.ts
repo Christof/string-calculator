@@ -3,22 +3,29 @@ import { sum, escapeRegExp } from 'lodash';
 export function add(input: string): number {
   if (input.length === 0) return 0;
 
-  const defaultSeparator = [',', '\n'];
-  if (input.startsWith('//')) {
-    const endOfCustomSeparator = input.indexOf('\n');
-    const customSeparator = input.slice(2, endOfCustomSeparator);
-    const remainingInput = input.slice(endOfCustomSeparator + 1);
-
-    const separators = [...defaultSeparator, escapeRegExp(customSeparator)];
-    const numbers = parseNumbers(
-      remainingInput,
-      new RegExp(separators.join('|'))
-    );
-    return sum(numbers);
-  }
-
-  const numbers = parseNumbers(input, /,|\n/);
+  const { separators, remainingInput } = parseSeparators(input);
+  const numbers = parseNumbers(
+    remainingInput,
+    new RegExp(separators.join('|'))
+  );
   return sum(numbers);
+}
+
+function parseSeparators(
+  input: string
+): { separators: string[]; remainingInput: string } {
+  const defaultSeparator = [',', '\n'];
+  if (!input.startsWith('//'))
+    return { separators: defaultSeparator, remainingInput: input };
+
+  const endOfCustomSeparator = input.indexOf('\n');
+  const customSeparator = input.slice(2, endOfCustomSeparator);
+  const remainingInput = input.slice(endOfCustomSeparator + 1);
+
+  return {
+    separators: [...defaultSeparator, escapeRegExp(customSeparator)],
+    remainingInput
+  };
 }
 
 function parseNumbers(input: string, separators: RegExp): number[] {
