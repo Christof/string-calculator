@@ -6,7 +6,7 @@ export function add(input: string): number {
   const { separators, remainingInput } = parseSeparators(input);
   const numbers = parseNumbers(
     remainingInput,
-    new RegExp(separators.join('|'))
+    createSeparatorsRegex(separators)
   );
   return sum(numbers);
 }
@@ -23,9 +23,13 @@ function parseSeparators(
   const remainingInput = input.slice(endOfCustomSeparator + 1);
 
   return {
-    separators: [...defaultSeparator, escapeRegExp(customSeparator)],
+    separators: [...defaultSeparator, customSeparator],
     remainingInput
   };
+}
+
+function createSeparatorsRegex(separators: string[]): RegExp {
+  return new RegExp(separators.map(escapeRegExp).join('|'));
 }
 
 function parseNumbers(input: string, separators: RegExp): number[] {
