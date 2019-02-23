@@ -6,18 +6,16 @@ export function add(input: string): number {
     const customSeparator = input.slice(2, endOfCustomSeparator);
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
-    const numbersAsStrings = remainingInput.split(customSeparator);
-
-    const numbers = numbersAsStrings.map(numberAsString =>
-      parseInt(numberAsString, 10)
-    );
+    const numbers = parseNumbers(remainingInput, new RegExp(customSeparator));
     return numbers.reduce((sum, number) => sum + number);
   }
 
-  const numbersAsStrings = input.split(/,|\n/);
-
-  const numbers = numbersAsStrings.map(numberAsString =>
-    parseInt(numberAsString, 10)
-  );
+  const numbers = parseNumbers(input, /,|\n/);
   return numbers.reduce((sum, number) => sum + number);
+}
+
+function parseNumbers(input: string, separators: RegExp): number[] {
+  const numbersAsStrings = input.split(separators);
+
+  return numbersAsStrings.map(numberAsString => parseInt(numberAsString, 10));
 }
