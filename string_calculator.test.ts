@@ -26,5 +26,9 @@ describe(`StringCalculator`, () => {
     it(`supports a mix of separators`, () => {
       expect(add('100\n200,300')).to.equal(600);
     });
+
+    it(`supports custom delimiters specified with a prefix`, () => {
+      expect(add('//;\n1;2')).to.equal(3);
+    });
   });
 });
