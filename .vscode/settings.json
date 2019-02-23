@@ -1,4 +1,5 @@
 {
   "mochaExplorer.require": ["ts-node/register"],
-  "mochaExplorer.files": "*.test.ts"
+  "mochaExplorer.files": "*.test.ts",
+  "testExplorer.codeLens": false
 }
