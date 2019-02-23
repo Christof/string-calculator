@@ -34,5 +34,9 @@ describe(`StringCalculator`, () => {
     it(`supports custom delimiters and escapes them, e.g. '//*\\n1*2' yields 3`, () => {
       expect(add('//*\n1*2')).to.equal(3);
     });
+
+    it(`supports custom and default delimiters`, () => {
+      expect(add('//*\n1*2,3\n4')).to.equal(10);
+    });
   });
 });
