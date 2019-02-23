@@ -1,3 +1,5 @@
+import { sum } from 'lodash';
+
 export function add(input: string): number {
   if (input.length === 0) return 0;
 
@@ -7,11 +9,11 @@ export function add(input: string): number {
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
     const numbers = parseNumbers(remainingInput, new RegExp(customSeparator));
-    return numbers.reduce((sum, number) => sum + number);
+    return sum(numbers);
   }
 
   const numbers = parseNumbers(input, /,|\n/);
-  return numbers.reduce((sum, number) => sum + number);
+  return sum(numbers);
 }
 
 function parseNumbers(input: string, separators: RegExp): number[] {
