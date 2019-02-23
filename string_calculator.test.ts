@@ -14,5 +14,9 @@ describe(`StringCalculator`, () => {
     it(`returns the sum of two given numbers separated by ',', e.g. '1,2' returns 3`, () => {
       expect(add('1,2')).to.equal(3);
     });
+
+    it(`returns sum of three given numbers separated by ','`, () => {
+      expect(add('10,20,30')).to.equal(60);
+    });
   });
 });
