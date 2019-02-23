@@ -30,5 +30,9 @@ describe(`StringCalculator`, () => {
     it(`supports custom delimiters specified with a prefix`, () => {
       expect(add('//;\n1;2')).to.equal(3);
     });
+
+    it(`supports custom delimiters and escapes them, e.g. '//*\\n1*2' yields 3`, () => {
+      expect(add('//*\n1*2')).to.equal(3);
+    });
   });
 });
