@@ -22,5 +22,9 @@ describe(`StringCalculator`, () => {
     it(`supports \\n as additional separator`, () => {
       expect(add('100\n200')).to.equal(300);
     });
+
+    it(`supports a mix of separators`, () => {
+      expect(add('100\n200,300')).to.equal(600);
+    });
   });
 });
