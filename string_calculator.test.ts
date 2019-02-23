@@ -18,5 +18,9 @@ describe(`StringCalculator`, () => {
     it(`returns sum of three given numbers separated by ','`, () => {
       expect(add('10,20,30')).to.equal(60);
     });
+
+    it(`supports \\n as additional separator`, () => {
+      expect(add('100\n200')).to.equal(300);
+    });
   });
 });
