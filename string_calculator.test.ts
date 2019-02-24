@@ -34,5 +34,9 @@ describe(`StringCalculator`, () => {
     it(`supports a mixture of separators`, () => {
       expect(add('//*\n2*3,4\n5')).to.equal(14);
     });
+
+    it(`throws an exception for negative numbers`, () => {
+      expect(() => add('-10,2,-20')).to.throw();
+    });
   });
 });

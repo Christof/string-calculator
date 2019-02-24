@@ -5,7 +5,13 @@ export function add(input: string) {
 
   const { separators, remainingInput } = parseSeparators(input);
 
-  return sum(parseNumbers(remainingInput, createSeparatorsRegex(separators)));
+  const numbers = parseNumbers(
+    remainingInput,
+    createSeparatorsRegex(separators)
+  );
+  if (numbers.some(number => number < 0)) throw new Error();
+
+  return sum(numbers);
 }
 
 function parseSeparators(
