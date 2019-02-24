@@ -30,5 +30,9 @@ describe(`StringCalculator`, () => {
     it(`supports custom separators and escapes them`, () => {
       expect(add('//*\n2*3')).to.equal(5);
     });
+
+    it(`supports a mixture of separators`, () => {
+      expect(add('//*\n2*3,4\n5')).to.equal(14);
+    });
   });
 });

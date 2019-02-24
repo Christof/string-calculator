@@ -9,7 +9,10 @@ export function add(input: string) {
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
     return sum(
-      parseNumbers(remainingInput, new RegExp(escapeRegExp(customSeparator)))
+      parseNumbers(
+        remainingInput,
+        new RegExp(',|\n|' + escapeRegExp(customSeparator))
+      )
     );
   }
 
