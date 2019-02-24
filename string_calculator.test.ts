@@ -14,5 +14,9 @@ describe(`StringCalculator`, () => {
     it(`returns the sum of numbers separated by ','`, () => {
       expect(add('10,2')).to.equal(12);
     });
+
+    it(`returns the sum of three numbers separated by ','`, () => {
+      expect(add('10,2,200')).to.equal(212);
+    });
   });
 });
