@@ -1,4 +1,4 @@
-import { sum } from 'lodash';
+import { sum, escapeRegExp } from 'lodash';
 
 export function add(input: string) {
   if (input.length === 0) return 0;
@@ -8,7 +8,9 @@ export function add(input: string) {
     const customSeparator = input.slice(2, endOfCustomSeparator);
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
-    return sum(parseNumbers(remainingInput, new RegExp(customSeparator)));
+    return sum(
+      parseNumbers(remainingInput, new RegExp(escapeRegExp(customSeparator)))
+    );
   }
 
   return sum(parseNumbers(input, /,|\n/));
