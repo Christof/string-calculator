@@ -1,3 +1,5 @@
 export function add(input: string) {
-  return 0;
+  if (input.length === 0) return 0;
+
+  return parseInt(input, 10);
 }
