@@ -5,12 +5,7 @@ export function add(input: string) {
 
   const { separators, remainingInput } = parseSeparators(input);
 
-  return sum(
-    parseNumbers(
-      remainingInput,
-      new RegExp(separators.map(escapeRegExp).join('|'))
-    )
-  );
+  return sum(parseNumbers(remainingInput, createSeparatorsRegex(separators)));
 }
 
 function parseSeparators(
@@ -28,6 +23,10 @@ function parseSeparators(
   }
 
   return { separators: defaultSeparators, remainingInput: input };
+}
+
+function createSeparatorsRegex(separators: string[]): RegExp {
+  return new RegExp(separators.map(escapeRegExp).join('|'));
 }
 
 function parseNumbers(input: string, separatorRegex: RegExp): number[] {
