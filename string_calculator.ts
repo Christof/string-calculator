@@ -9,7 +9,11 @@ export function add(input: string) {
     remainingInput,
     createSeparatorsRegex(separators)
   );
-  if (numbers.some(number => number < 0)) throw new Error();
+  if (numbers.some(number => number < 0)) {
+    const negatives = numbers.filter(number => number < 0);
+
+    throw new Error('Negatives not allowed: ' + negatives.join(', '));
+  }
 
   return sum(numbers);
 }
