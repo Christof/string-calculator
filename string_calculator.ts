@@ -8,15 +8,13 @@ export function add(input: string) {
     const customSeparator = input.slice(2, endOfCustomSeparator);
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
-    const numbersAsStrings = remainingInput.split(customSeparator);
-    const numbers = numbersAsStrings.map(numberAsString =>
-      parseInt(numberAsString, 10)
-    );
-    return sum(numbers);
+    return sum(parseNumbers(remainingInput, new RegExp(customSeparator)));
   }
-  const numbersAsStrings = input.split(/,|\n/);
-  const numbers = numbersAsStrings.map(numberAsString =>
-    parseInt(numberAsString, 10)
-  );
-  return sum(numbers);
+
+  return sum(parseNumbers(input, /,|\n/));
+}
+
+function parseNumbers(input: string, separatorRegex: RegExp): number[] {
+  const numbersAsStrings = input.split(separatorRegex);
+  return numbersAsStrings.map(numberAsString => parseInt(numberAsString, 10));
 }
