@@ -16,14 +16,18 @@ export function add(input: string) {
 function parseSeparators(
   input: string
 ): { separators: string[]; remainingInput: string } {
+  const defaultSeparators = [',', '\n'];
   if (input.startsWith('//')) {
     const endOfCustomSeparator = input.indexOf('\n');
     const customSeparator = input.slice(2, endOfCustomSeparator);
     const remainingInput = input.slice(endOfCustomSeparator + 1);
-    return { separators: [',', '\n', customSeparator], remainingInput };
+    return {
+      separators: [...defaultSeparators, customSeparator],
+      remainingInput
+    };
   }
 
-  return { separators: [',', '\n'], remainingInput: input };
+  return { separators: defaultSeparators, remainingInput: input };
 }
 
 function parseNumbers(input: string, separatorRegex: RegExp): number[] {
