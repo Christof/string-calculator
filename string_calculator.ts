@@ -11,6 +11,9 @@ export function add(input: string): number {
   const numbers = numbersAsString.map(numberAsString =>
     parseInt(numberAsString, 10)
   );
+
+  if (numbers.some(number => number <= 0)) throw new Error();
+
   return sum(numbers);
 }
 

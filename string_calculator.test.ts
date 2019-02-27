@@ -34,5 +34,9 @@ describe(`StringCalculator`, () => {
     it(`supports custom separators mixed with default ones`, () => {
       expect(add('//*\n11\n13*100,200')).to.equal(324);
     });
+
+    it(`throws an error for negative numbers`, () => {
+      expect(() => add('-10')).to.throw();
+    });
   });
 });
