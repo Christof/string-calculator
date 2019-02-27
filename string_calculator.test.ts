@@ -26,5 +26,13 @@ describe(`StringCalculator`, () => {
     it(`supports custom separator specified with a prefix`, () => {
       expect(add('//;\n11;25')).to.equal(36);
     });
+
+    it(`supports custom separator and escapes it`, () => {
+      expect(add('//*\n11*25')).to.equal(36);
+    });
+
+    it(`supports custom separators mixed with default ones`, () => {
+      expect(add('//*\n11\n13*100,200')).to.equal(324);
+    });
   });
 });

@@ -1,3 +1,5 @@
+import { escapeRegExp } from 'lodash';
+
 export function add(input: string): number {
   if (input.length === 0) return 0;
 
@@ -6,7 +8,9 @@ export function add(input: string): number {
     const customSeparator = input.slice(2, endOfCustomSeparator);
     const remainingInput = input.slice(endOfCustomSeparator + 1);
 
-    const numbersAsString = remainingInput.split(customSeparator);
+    const numbersAsString = remainingInput.split(
+      new RegExp(`,|\n|${escapeRegExp(customSeparator)}`)
+    );
     const numbers = numbersAsString.map(numberAsString =>
       parseInt(numberAsString, 10)
     );
