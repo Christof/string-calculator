@@ -6,5 +6,9 @@ describe(`StringCalculator`, () => {
     it(`returns 0 for empty string`, () => {
       expect(add('')).to.equal(0);
     });
+
+    it(`returns a parsed number`, () => {
+      expect(add('11')).to.equal(11);
+    });
   });
 });
