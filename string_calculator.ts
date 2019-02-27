@@ -12,7 +12,11 @@ export function add(input: string): number {
     parseInt(numberAsString, 10)
   );
 
-  if (numbers.some(number => number <= 0)) throw new Error();
+  if (numbers.some(number => number <= 0)) {
+    const negatives = numbers.filter(number => number <= 0);
+
+    throw new Error(`Negatives not allowed: ${negatives.join(', ')}`);
+  }
 
   return sum(numbers);
 }

@@ -38,5 +38,11 @@ describe(`StringCalculator`, () => {
     it(`throws an error for negative numbers`, () => {
       expect(() => add('-10')).to.throw();
     });
+
+    it(`includes the negative numbers in the error message of negative numbers`, () => {
+      expect(() => add('-10,5,-13')).to.throw(
+        'Negatives not allowed: -10, -13'
+      );
+    });
   });
 });
