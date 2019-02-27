@@ -18,5 +18,9 @@ describe(`StringCalculator`, () => {
     it(`returns sum of three numbers separated by ','`, () => {
       expect(add('11,13,100')).to.equal(124);
     });
+
+    it(`suports new line as additional separator`, () => {
+      expect(add('11\n13,100')).to.equal(124);
+    });
   });
 });
