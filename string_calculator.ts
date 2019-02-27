@@ -10,11 +10,7 @@ export function add(input: string): number {
     createSeparatorsRegex(separators)
   );
 
-  if (numbers.some(isNegative)) {
-    const negatives = numbers.filter(isNegative);
-
-    throw new Error(`Negatives not allowed: ${negatives.join(', ')}`);
-  }
+  throwForNegativeNumbers(numbers);
 
   return sum(numbers);
 }
@@ -46,6 +42,14 @@ function parseSeparators(
 
 function createSeparatorsRegex(separators: string[]): RegExp {
   return new RegExp(separators.map(escapeRegExp).join('|'));
+}
+
+function throwForNegativeNumbers(numbers: number[]) {
+  if (numbers.some(isNegative)) {
+    const negatives = numbers.filter(isNegative);
+
+    throw new Error(`Negatives not allowed: ${negatives.join(', ')}`);
+  }
 }
 
 function isNegative(number: number): boolean {
