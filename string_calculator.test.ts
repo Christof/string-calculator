@@ -11,8 +11,12 @@ describe(`StringCalculator`, () => {
       expect(add('11')).to.equal(11);
     });
 
-    it(`returns the sum of numbers separated by ','`, () => {
+    it(`returns the sum of two numbers separated by ','`, () => {
       expect(add('11,13')).to.equal(24);
+    });
+
+    it(`returns sum of three numbers separated by ','`, () => {
+      expect(add('11,13,100')).to.equal(124);
     });
   });
 });
