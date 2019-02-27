@@ -3,13 +3,11 @@ import { escapeRegExp, sum } from 'lodash';
 export function add(input: string): number {
   if (input.length === 0) return 0;
 
-  const { remainingInput, separators } = parseSeparator(input);
+  const { remainingInput, separators } = parseSeparators(input);
 
-  const numbersAsString = remainingInput.split(
+  const numbers = parseNumbers(
+    remainingInput,
     createSeparatorsRegex(separators)
-  );
-  const numbers = numbersAsString.map(numberAsString =>
-    parseInt(numberAsString, 10)
   );
 
   if (numbers.some(isNegative)) {
@@ -21,7 +19,13 @@ export function add(input: string): number {
   return sum(numbers);
 }
 
-function parseSeparator(
+function parseNumbers(input: string, separatorsRegExp: RegExp) {
+  const numbersAsString = input.split(separatorsRegExp);
+
+  return numbersAsString.map(numberAsString => parseInt(numberAsString, 10));
+}
+
+function parseSeparators(
   input: string
 ): { separators: string[]; remainingInput: string } {
   const defaultSeparators = [',', '\n'];
