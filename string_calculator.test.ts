@@ -22,5 +22,9 @@ describe(`StringCalculator`, () => {
     it(`suports new line as additional separator`, () => {
       expect(add('11\n13,100')).to.equal(124);
     });
+
+    it(`supports custom separator specified with a prefix`, () => {
+      expect(add('//;\n11;25')).to.equal(36);
+    });
   });
 });
