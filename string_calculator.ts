@@ -8,6 +8,10 @@ export function add(input: string): number {
     createSeparatorsRegExp(separators)
   );
   const numbers = parseNumbers(numbersAsStrings);
+
+  if (numbers.some(number => number < 0))
+    throw new Error('Negatives not allowed');
+
   return sum(numbers);
 }
 

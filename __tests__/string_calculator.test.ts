@@ -33,5 +33,9 @@ describe(`StringCalculator`, () => {
     it(`escapes separators in regex to support all characters`, () => {
       expect(add('//*\n1*2')).toEqual(3);
     });
+
+    it(`throws an exception for negative numbers`, () => {
+      expect(() => add('-10')).toThrowError();
+    });
   });
 });
