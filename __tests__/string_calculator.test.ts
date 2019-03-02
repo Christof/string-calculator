@@ -21,5 +21,9 @@ describe(`StringCalculator`, () => {
     it(`supports new line as additional separator`, () => {
       expect(add('9\n98\n3')).toEqual(110);
     });
+
+    it(`supports custom separators specified with a special prefix, e.g. '//;\\n1;2' returns 3`, () => {
+      expect(add('//;\n1;2')).toEqual(3);
+    });
   });
 });
