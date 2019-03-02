@@ -17,5 +17,9 @@ describe(`StringCalculator`, () => {
     it(`returns the sum of three numbers`, () => {
       expect(add('9,98,3')).toEqual(110);
     });
+
+    it(`supports new line as additional separator`, () => {
+      expect(add('9\n98\n3')).toEqual(110);
+    });
   });
 });
