@@ -9,8 +9,8 @@ export function add(input: string): number {
   );
   const numbers = parseNumbers(numbersAsStrings);
 
-  if (numbers.some(number => number < 0)) {
-    const negatives = numbers.filter(number => number < 0);
+  if (numbers.some(isNegative)) {
+    const negatives = numbers.filter(isNegative);
     throw new Error(`Negatives not allowed: ${negatives.join(', ')}`);
   }
 
@@ -41,4 +41,8 @@ function parseNumbers(numbersAsStrings: string[]): number[] {
 
 function createSeparatorsRegExp(separators: string[]) {
   return new RegExp(separators.map(escapeRegExp).join('|'));
+}
+
+function isNegative(number: number): boolean {
+  return number < 0;
 }
