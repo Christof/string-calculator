@@ -29,5 +29,9 @@ describe(`StringCalculator`, () => {
     it(`supports mixture of all separators`, () => {
       expect(add('//;\n1;2,3\n4')).toEqual(10);
     });
+
+    it(`escapes separators in regex to support all characters`, () => {
+      expect(add('//*\n1*2')).toEqual(3);
+    });
   });
 });

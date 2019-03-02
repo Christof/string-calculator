@@ -1,4 +1,4 @@
-import { sum } from 'lodash';
+import { sum, escapeRegExp } from 'lodash';
 
 export function add(input: string): number {
   if (input.length === 0) return 0;
@@ -28,5 +28,5 @@ function parseNumbers(numbersAsStrings: string[]): number[] {
 }
 
 function createSeparatorsRegExp(separators: string[]) {
-  return new RegExp(separators.join('|'));
+  return new RegExp(separators.map(escapeRegExp).join('|'));
 }
