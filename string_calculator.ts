@@ -8,7 +8,9 @@ export function add(input: string): number {
     const customSeparator = input.slice(2, endOfSeparator);
     const remainingInput = input.slice(endOfSeparator + 1);
 
-    const numbersAsStrings = remainingInput.split(customSeparator);
+    const numbersAsStrings = remainingInput.split(
+      new RegExp(`,|\n|${customSeparator}`)
+    );
     const numbers = parseNumbers(numbersAsStrings);
     return sum(numbers);
   }
