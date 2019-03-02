@@ -9,5 +9,9 @@ describe(`StringCalculator`, () => {
     it(`returns a parsed number`, () => {
       expect(add('9')).toEqual(9);
     });
+
+    it(`returns the sum of two numbers separated by ','`, () => {
+      expect(add('9,98')).toEqual(107);
+    });
   });
 });
