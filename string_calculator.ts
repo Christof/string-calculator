@@ -1,3 +1,5 @@
+import { sum } from 'lodash';
+
 export function add(input: string): number {
   if (input.length === 0) return 0;
 
@@ -10,12 +12,12 @@ export function add(input: string): number {
     const numbers = numbersAsStrings.map(numberAsString =>
       parseInt(numberAsString, 10)
     );
-    return numbers.reduce((accumulator, number) => accumulator + number);
+    return sum(numbers);
   }
 
   const numbersAsStrings = input.split(/,|\n/);
   const numbers = numbersAsStrings.map(numberAsString =>
     parseInt(numberAsString, 10)
   );
-  return numbers.reduce((accumulator, number) => accumulator + number);
+  return sum(numbers);
 }
