@@ -5,8 +5,9 @@
   "author": "christof <christof.sirk@gmail.com>",
   "license": "MIT",
   "jest": {
+    "collectCoverage": true,
     "collectCoverageFrom": [
-      "/*.{ts}",
+      "*.ts",
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
