@@ -9,15 +9,15 @@ export function add(input: string): number {
     const remainingInput = input.slice(endOfSeparator + 1);
 
     const numbersAsStrings = remainingInput.split(customSeparator);
-    const numbers = numbersAsStrings.map(numberAsString =>
-      parseInt(numberAsString, 10)
-    );
+    const numbers = parseNumbers(numbersAsStrings);
     return sum(numbers);
   }
 
   const numbersAsStrings = input.split(/,|\n/);
-  const numbers = numbersAsStrings.map(numberAsString =>
-    parseInt(numberAsString, 10)
-  );
+  const numbers = parseNumbers(numbersAsStrings);
   return sum(numbers);
+}
+
+function parseNumbers(numbersAsStrings: string[]): number[] {
+  return numbersAsStrings.map(numberAsString => parseInt(numberAsString, 10));
 }
