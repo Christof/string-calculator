@@ -9,8 +9,10 @@ export function add(input: string): number {
   );
   const numbers = parseNumbers(numbersAsStrings);
 
-  if (numbers.some(number => number < 0))
-    throw new Error('Negatives not allowed');
+  if (numbers.some(number => number < 0)) {
+    const negatives = numbers.filter(number => number < 0);
+    throw new Error(`Negatives not allowed: ${negatives.join(', ')}`);
+  }
 
   return sum(numbers);
 }
